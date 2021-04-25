@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.viavarejo.error.ResourceNotAcceptableException;
 import br.com.viavarejo.model.Cliente;
+import br.com.viavarejo.repository.ApoliceRepository;
 import br.com.viavarejo.repository.ClienteRepository;
 import br.com.viavarejo.service.ClienteService;
 
@@ -16,8 +17,12 @@ public class ClienteServiceImpl implements ClienteService {
 	@Autowired
 	ClienteRepository repository;
 
+	@Autowired
+	ApoliceRepository apoliceRepository;
+
 	private final String MSG_CPF_CADASTRADO = "CPF já está cadastrado!";
 	private final String MSG_CLIENTE_INEXISTENTE = "Cliente não existe!";
+	private final String MSG_CLIENTE_VINCULADO_APOLICE = "Não foi possivel excluir este Cliente, pois ele está vinculado a uma Apolice!";
 
 	@Override
 	public Cliente create(Cliente c) {
@@ -51,12 +56,13 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Boolean delete(String id) {
-		Boolean retorno = Boolean.FALSE;
-		if (repository.existsById(id)) {
-			repository.deleteById(id);
-			return Boolean.TRUE;
+		Cliente c = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotAcceptableException(MSG_CLIENTE_INEXISTENTE));
+		if (apoliceRepository.existsByCliente(c)) {
+			throw new ResourceNotAcceptableException(MSG_CLIENTE_VINCULADO_APOLICE);
 		}
-		return retorno;
+		repository.deleteById(id);
+		return Boolean.TRUE;
 	}
 
 }
