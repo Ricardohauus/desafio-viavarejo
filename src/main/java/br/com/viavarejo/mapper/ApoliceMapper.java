@@ -17,9 +17,10 @@ public class ApoliceMapper {
 		apoliceDTO.setPlacaVeiculo(a.getPlacaVeiculo());
 		apoliceDTO.setValor(a.getValor());
 		apoliceDTO.setSituacao(a.getDataFim().isBefore(LocalDate.now()) ? "Venceu" : "Em Vigência");
-		long dias = ChronoUnit.DAYS.between(LocalDate.now(), a.getDataFim());
-		apoliceDTO.setSituacaoEmDias(apoliceDTO.getSituacao().equals("Venceu") ? "Venceu há " + dias + " Dia(s)"
-				: "A sua Apolice vai vencer em " + dias + " Dia(s)");
+		long dias = Math.abs((ChronoUnit.DAYS.between(LocalDate.now(), a.getDataFim())));
+		apoliceDTO.setSituacaoEmDias(
+				apoliceDTO.getSituacao().equals("Venceu") ? "A sua Apolice venceu há " + dias + " Dia(s)"
+						: "A sua Apolice vai vencer em " + dias + " Dia(s)");
 		return apoliceDTO;
 	}
 
