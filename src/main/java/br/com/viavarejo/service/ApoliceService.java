@@ -44,8 +44,9 @@ public interface ApoliceService {
 	 * 
 	 * @param numero, numero da Apolice que será deletada.
 	 * 
+	 * @return Um Booleano confirmando se foi excluido ou não.
 	 */
-	public void delete(String numero);
+	public Boolean delete(String numero);
 
 	/*
 	 * Pesquisa Apolice pelo Numero.

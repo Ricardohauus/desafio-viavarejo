@@ -38,9 +38,8 @@ public class ApoliceController {
 	}
 
 	@DeleteMapping("/{numero}")
-	public ResponseEntity<Boolean> delete(@PathVariable("numero") String numero) {
-		this.apoliceService.delete(numero);
-		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+	public ResponseEntity<Boolean> delete(@PathVariable("numero") String numero) {		
+		return new ResponseEntity<Boolean>(this.apoliceService.delete(numero), HttpStatus.OK);
 	}
 
 	@GetMapping

@@ -55,8 +55,13 @@ public class ApoliceServiceImpl implements ApoliceService {
 	}
 
 	@Override
-	public void delete(String numero) {
-		repository.deleteById(numero);
+	public Boolean delete(String id) {
+		Boolean retorno = Boolean.FALSE;
+		if (repository.existsById(id)) {
+			repository.deleteById(id);
+			return Boolean.TRUE;
+		}
+		return retorno;
 	}
 
 	private void validarData(Apolice a) {
