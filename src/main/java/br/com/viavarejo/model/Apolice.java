@@ -6,6 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -36,6 +37,7 @@ public class Apolice {
 	@NotNull(message = "Valor {field.not.null}")
 	private Double valor;
 
+	@DBRef
 	@NotNull(message = "Cliente {field.not.null}")
 	private Cliente cliente;
 
