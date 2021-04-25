@@ -11,6 +11,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Cliente")
 @Document(collection = "cliente")
 public class Cliente implements Serializable {
 
@@ -23,16 +27,20 @@ public class Cliente implements Serializable {
 	@Id
 	private String id;
 
+	@ApiModelProperty(required = true)
 	@NotEmpty(message = "Nome {field.not.blank}")
 	private String nome;
 
+	@ApiModelProperty(required = true)
 	@NotEmpty(message = "CPF {field.not.blank}")
 	@CPF(message = "{field.cpf.invalidate}")
 	private String cpf;
 
+	@ApiModelProperty(required = true)
 	@NotEmpty(message = "Cidade {field.not.blank}")
 	private String cidade;
 
+	@ApiModelProperty(required = true)
 	@NotEmpty(message = "UF {field.not.blank}")
 	private String uf;
 
