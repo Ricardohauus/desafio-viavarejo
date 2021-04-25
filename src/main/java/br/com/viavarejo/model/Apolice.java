@@ -14,6 +14,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Apolice")
 @Document(collection = "apolice")
 public class Apolice implements Serializable {
 
@@ -26,20 +30,25 @@ public class Apolice implements Serializable {
 	@JsonIgnore
 	private String numero;
 
+	@ApiModelProperty(required = true, dataType = "org.joda.time.LocalDate", example = "dd/MM/yyyy")
 	@NotNull(message = "Data Inicio {field.not.null}")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataInicio;
 
+	@ApiModelProperty(required = true, dataType = "org.joda.time.LocalDate", example = "dd/MM/yyyy")
 	@NotNull(message = "Data Fim {field.not.null}")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataFim;
 
+	@ApiModelProperty(required = true)
 	@NotEmpty(message = "Placa do Veiculo {field.not.blank}")
 	private String placaVeiculo;
 
+	@ApiModelProperty(required = true)
 	@NotNull(message = "Valor {field.not.null}")
 	private Double valor;
 
+	@ApiModelProperty(required = true)
 	@DBRef
 	@NotNull(message = "Cliente {field.not.null}")
 	private Cliente cliente;
@@ -69,7 +78,6 @@ public class Apolice implements Serializable {
 	public void setDataFim(LocalDate dataFim) {
 		this.dataFim = dataFim;
 	}
-
 
 	public String getPlacaVeiculo() {
 		return placaVeiculo;

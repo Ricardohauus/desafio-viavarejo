@@ -59,7 +59,7 @@ public class ApoliceServiceImpl implements ApoliceService {
 		Boolean retorno = Boolean.FALSE;
 		if (repository.existsById(id)) {
 			repository.deleteById(id);
-			return Boolean.TRUE;
+			retorno = Boolean.TRUE;
 		}
 		return retorno;
 	}
