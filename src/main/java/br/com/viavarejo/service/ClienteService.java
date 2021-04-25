@@ -58,7 +58,9 @@ public interface ClienteService {
 	 * 
 	 * @param ID, Identificador do Cliente que será deletado.
 	 * 
+	 * @return Um Booleano confirmando se foi excluido ou não.
+	 * 
 	 */
-	public void delete(String id);
+	public Boolean delete(String id);
 
 }

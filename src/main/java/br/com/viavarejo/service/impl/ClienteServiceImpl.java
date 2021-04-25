@@ -50,7 +50,13 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	@Override
-	public void delete(String id) {
-		repository.deleteById(id);
+	public Boolean delete(String id) {
+		Boolean retorno = Boolean.FALSE;
+		if (repository.existsById(id)) {
+			repository.deleteById(id);
+			return Boolean.TRUE;
+		}
+		return retorno;
 	}
+
 }

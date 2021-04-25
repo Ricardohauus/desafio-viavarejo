@@ -33,14 +33,12 @@ public class ClienteController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Cliente> update(@RequestBody @Valid Cliente cliente, @PathVariable("id") String id) {
-		cliente.setId(id);
 		return new ResponseEntity<Cliente>(this.clienteService.update(cliente, id), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> delete(@PathVariable("id") String id) {
-		this.clienteService.delete(id);
-		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+		return new ResponseEntity<Boolean>(this.clienteService.delete(id), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
