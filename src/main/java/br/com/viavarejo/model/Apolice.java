@@ -28,9 +28,6 @@ public class Apolice {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataFim;
 
-	@NotEmpty(message = "Nome {field.not.blank}")
-	private String nome;
-
 	@NotEmpty(message = "Placa do Veiculo {field.not.blank}")
 	private String placaVeiculo;
 
@@ -67,13 +64,6 @@ public class Apolice {
 		this.dataFim = dataFim;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 
 	public String getPlacaVeiculo() {
 		return placaVeiculo;
@@ -106,7 +96,6 @@ public class Apolice {
 		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
 		result = prime * result + ((dataFim == null) ? 0 : dataFim.hashCode());
 		result = prime * result + ((dataInicio == null) ? 0 : dataInicio.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		result = prime * result + ((placaVeiculo == null) ? 0 : placaVeiculo.hashCode());
 		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
@@ -136,11 +125,6 @@ public class Apolice {
 			if (other.dataInicio != null)
 				return false;
 		} else if (!dataInicio.equals(other.dataInicio))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
 			return false;
 		if (numero == null) {
 			if (other.numero != null)
