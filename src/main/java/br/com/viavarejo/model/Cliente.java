@@ -1,5 +1,7 @@
 package br.com.viavarejo.model;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -10,7 +12,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Document(collection = "cliente")
-public class Cliente {
+public class Cliente implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7109242336678290L;
 
 	@JsonIgnore
 	@Id
@@ -33,7 +40,7 @@ public class Cliente {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	@JsonProperty
 	public String getId() {
 		return id;

@@ -1,5 +1,6 @@
 package br.com.viavarejo.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
@@ -14,7 +15,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Document(collection = "apolice")
-public class Apolice {
+public class Apolice implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2173009518293049956L;
 
 	@Id
 	@JsonIgnore
