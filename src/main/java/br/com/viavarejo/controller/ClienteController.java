@@ -28,7 +28,7 @@ public class ClienteController {
 
 	@PostMapping
 	public ResponseEntity<Cliente> create(@RequestBody @Valid Cliente cliente) {
-		return new ResponseEntity<Cliente>(this.clienteService.create(cliente), HttpStatus.OK);
+		return new ResponseEntity<Cliente>(this.clienteService.create(cliente), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")

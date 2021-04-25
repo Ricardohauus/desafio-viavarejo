@@ -29,6 +29,9 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Cliente update(Cliente c, String id) {
+		if (!repository.existsById(id)) {
+			throw new ResourceNotAcceptableException(MSG_CLIENTE_INEXISTENTE);
+		}
 		if (repository.existsByCpfAndIdNot(c.getCpf(), id)) {
 			throw new ResourceNotAcceptableException(MSG_CPF_CADASTRADO);
 		}
