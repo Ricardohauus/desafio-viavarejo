@@ -21,7 +21,12 @@ public class ApoliceServiceImpl implements ApoliceService {
 
 	@Autowired
 	ClienteRepository clienteRepository;
-
+	
+	private final String MSG_APOLICE_INEXISTENTE = "CPF já está cadastrado!";
+	private final String MSG_CLIENTE_INEXISTENTE = "Cliente não existe!";
+	private final String MSG_DATA_FIM_MENOR_DATA_INCIO = "A Data Fim não pode ser Menor que a Data Inicio!";
+	private final String MSG_INFORME_CPF = "Por favor, informe o CPF do cliente";
+	
 	@Override
 	public Apolice create(Apolice a) {
 		Cliente cliente = validarCliente(a.getCliente().getCpf());
@@ -40,7 +45,7 @@ public class ApoliceServiceImpl implements ApoliceService {
 
 	@Override
 	public Apolice findById(String numero) {
-		return repository.findById(numero).orElseThrow(() -> new ResourceNotAcceptableException("Apolice não existe!"));
+		return repository.findById(numero).orElseThrow(() -> new ResourceNotAcceptableException(MSG_APOLICE_INEXISTENTE));
 	}
 
 	@Override
@@ -55,15 +60,15 @@ public class ApoliceServiceImpl implements ApoliceService {
 
 	private void validarData(Apolice a) {
 		if (a.getDataFim().isBefore(a.getDataInicio())) {
-			throw new ResourceNotAcceptableException("A Data Fim não pode ser Menor que a Data Inicio!");
+			throw new ResourceNotAcceptableException(MSG_DATA_FIM_MENOR_DATA_INCIO);
 		}
 	}
 
 	private Cliente validarCliente(String cpf) {
 		if (ObjectUtils.isEmpty(cpf)) {
-			throw new ResourceNotAcceptableException("Por favor, informe um cliente");
+			throw new ResourceNotAcceptableException(MSG_INFORME_CPF);
 		}
 		return clienteRepository.findByCpf(cpf)
-				.orElseThrow(() -> new ResourceNotAcceptableException("Este Cliente não está cadastrado!"));
+				.orElseThrow(() -> new ResourceNotAcceptableException(MSG_CLIENTE_INEXISTENTE));
 	}
 }
