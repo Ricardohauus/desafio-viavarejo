@@ -2,6 +2,7 @@ package br.com.viavarejo.service;
 
 import java.util.List;
 
+import br.com.viavarejo.dto.ApoliceDTO;
 import br.com.viavarejo.model.Apolice;
 
 public interface ApoliceService {
@@ -31,17 +32,6 @@ public interface ApoliceService {
 	public Apolice update(Apolice a, String numero);
 
 	/*
-	 * Pesquisa Apolice pelo Numero.
-	 * 
-	 * @param numero, O Numero da Apolice que será pesquisada.
-	 * 
-	 * @return A Apolice que foi pesquisada.
-	 * 
-	 */
-
-	public Apolice findById(String numero);
-
-	/*
 	 * Lista todas as Apolices
 	 * 
 	 * @return A lista de todas as Apolices.
@@ -56,4 +46,16 @@ public interface ApoliceService {
 	 * 
 	 */
 	public void delete(String numero);
+
+	/*
+	 * Pesquisa Apolice pelo Numero.
+	 * 
+	 * @param numero, O Numero da Apolice que será pesquisada.
+	 * 
+	 * @return A ApoliceDTO que foi pesquisada.
+	 * 
+	 */
+
+	public ApoliceDTO findByNumero(String numero);
+
 }

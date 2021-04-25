@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import br.com.viavarejo.dto.ApoliceDTO;
 import br.com.viavarejo.error.ResourceNotAcceptableException;
+import br.com.viavarejo.mapper.ApoliceMapper;
 import br.com.viavarejo.model.Apolice;
 import br.com.viavarejo.model.Cliente;
 import br.com.viavarejo.repository.ApoliceRepository;
@@ -22,7 +24,7 @@ public class ApoliceServiceImpl implements ApoliceService {
 	@Autowired
 	ClienteRepository clienteRepository;
 
-	private final String MSG_APOLICE_INEXISTENTE = "CPF já está cadastrado!";
+	private final String MSG_APOLICE_INEXISTENTE = "Apolice não existe!";
 	private final String MSG_CLIENTE_INEXISTENTE = "Cliente não existe!";
 	private final String MSG_DATA_FIM_MENOR_DATA_INCIO = "A Data Fim não pode ser Menor que a Data Inicio!";
 	private final String MSG_INFORME_CPF = "Por favor, informe o CPF do cliente";
@@ -37,17 +39,14 @@ public class ApoliceServiceImpl implements ApoliceService {
 
 	@Override
 	public Apolice update(Apolice a, String numero) {
+		if (!repository.existsById(numero)) {
+			throw new ResourceNotAcceptableException(MSG_APOLICE_INEXISTENTE);
+		}
 		a.setNumero(numero);
 		Cliente cliente = validarCliente(a.getCliente().getCpf());
 		validarData(a);
 		a.setCliente(cliente);
 		return repository.save(a);
-	}
-
-	@Override
-	public Apolice findById(String numero) {
-		return repository.findById(numero)
-				.orElseThrow(() -> new ResourceNotAcceptableException(MSG_APOLICE_INEXISTENTE));
 	}
 
 	@Override
@@ -72,5 +71,12 @@ public class ApoliceServiceImpl implements ApoliceService {
 		}
 		return clienteRepository.findByCpf(cpf)
 				.orElseThrow(() -> new ResourceNotAcceptableException(MSG_CLIENTE_INEXISTENTE));
+	}
+
+	@Override
+	public ApoliceDTO findByNumero(String numero) {
+		Apolice apolice = repository.findById(numero)
+				.orElseThrow(() -> new ResourceNotAcceptableException(MSG_APOLICE_INEXISTENTE));
+		return ApoliceMapper.convertEntityToApoliceDTO(apolice);
 	}
 }

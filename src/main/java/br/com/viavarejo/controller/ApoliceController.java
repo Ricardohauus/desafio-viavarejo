@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.viavarejo.dto.ApoliceDTO;
 import br.com.viavarejo.model.Apolice;
 import br.com.viavarejo.service.impl.ApoliceServiceImpl;
 
@@ -28,7 +29,7 @@ public class ApoliceController {
 
 	@PostMapping
 	public ResponseEntity<Apolice> create(@RequestBody @Valid Apolice apolice) {
-		return new ResponseEntity<Apolice>(this.apoliceService.create(apolice), HttpStatus.OK);
+		return new ResponseEntity<Apolice>(this.apoliceService.create(apolice), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{numero}")
@@ -42,14 +43,14 @@ public class ApoliceController {
 		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
 	}
 
-	@GetMapping("/{numero}")
-	public ResponseEntity<Apolice> findById(@PathVariable("numero") String numero) {
-		return new ResponseEntity<Apolice>(this.apoliceService.findById(numero), HttpStatus.OK);
-	}
-
 	@GetMapping
 	public ResponseEntity<List<Apolice>> findAll() {
 		return new ResponseEntity<List<Apolice>>(this.apoliceService.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/findByNumero/{numero}")
+	public ResponseEntity<ApoliceDTO> findByNumero(@PathVariable("numero") String numero) {
+		return new ResponseEntity<ApoliceDTO>(this.apoliceService.findByNumero(numero), HttpStatus.OK);
 	}
 
 }
